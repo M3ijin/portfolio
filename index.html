@@ -108,6 +108,11 @@
     flex-shrink: 0;
   }
 
+  .pdf-btn.loading {
+    opacity: 0.7;
+    cursor: wait;
+  }
+
   .lang-btn {
     background: none;
     border: none;
@@ -729,6 +734,7 @@
     .btn { justify-content: center; }
   }
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
 
@@ -738,7 +744,7 @@
     <button class="lang-btn active" onclick="setLang('es')">ES</button>
     <button class="lang-btn" onclick="setLang('en')">EN</button>
   </div>
-  <button class="pdf-btn" onclick="window.print()">
+  <button class="pdf-btn" id="pdfBtn" onclick="downloadPDF()">
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
       <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
     </svg>
@@ -768,7 +774,7 @@
         data-en="Developer with 3+ years of experience in demanding environments — banking and enterprise. Specialized in Java and PL/SQL, with a full-stack vision and currently integrating artificial intelligence into the development workflow.">
       </p>
       <div class="hero-cta">
-        <a href="/cdn-cgi/l/email-protection#80e1ece5f8efece3e1b9b9c0eff5f4ecefefebaee5f3" class="btn btn-primary">
+        <a href="/cdn-cgi/l/email-protection#6b0a070e130407080a52522b041e1f07040400450e18" class="btn btn-primary">
           <span>✉</span>
           <span class="t" data-es="Contactar" data-en="Get in touch"></span>
         </a>
@@ -951,11 +957,11 @@
       <h2 class="section-title t" data-es="Contacto" data-en="Contact"></h2>
     </div>
     <div class="contact-grid">
-      <a href="/cdn-cgi/l/email-protection#93f2fff6ebfcfff0f2aaaad3fce6e7fffcfcf8bdf6e0" class="contact-card reveal">
+      <a href="/cdn-cgi/l/email-protection#5938353c2136353a38606019362c2d35363632773c2a" class="contact-card reveal">
         <div class="contact-icon">✉</div>
         <div>
           <div class="contact-label">Email</div>
-          <div class="contact-value"><span class="__cf_email__" data-cfemail="33525f564b5c5f50520a0a735c46475f5c5c581d5640">[email&#160;protected]</span></div>
+          <div class="contact-value"><span class="__cf_email__" data-cfemail="3958555c4156555a58000079564c4d55565652175c4a">[email&#160;protected]</span></div>
         </div>
       </a>
       <a href="tel:+34662492921" class="contact-card reveal">
@@ -1011,6 +1017,56 @@
   }, { threshold: 0.15 });
 
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // PDF DOWNLOAD — página completa como CV
+  function downloadPDF() {
+    const btn = document.getElementById('pdfBtn');
+    const originalHTML = btn.innerHTML;
+    btn.classList.add('loading');
+    btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;animation:spin 1s linear infinite"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg><span>' + (currentLang === 'es' ? 'Generando...' : 'Generating...') + '</span>';
+
+    // Hide top-bar during capture
+    const topBar = document.querySelector('.top-bar');
+    topBar.style.display = 'none';
+
+    // Make all reveal elements visible for capture
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+
+    const element = document.querySelector('.container') || document.body;
+
+    const opt = {
+      margin:       [10, 14, 10, 14],
+      filename:     'Alex_Olejnik_CV.pdf',
+      image:        { type: 'jpeg', quality: 0.98 },
+      html2canvas:  {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: '#0a0a0f',
+        logging: false,
+        windowWidth: 960
+      },
+      jsPDF: {
+        unit: 'mm',
+        format: 'a4',
+        orientation: 'portrait'
+      },
+      pagebreak: { mode: ['avoid-all', 'css'] }
+    };
+
+    html2pdf().set(opt).from(document.body).save().then(() => {
+      topBar.style.display = '';
+      btn.classList.remove('loading');
+      btn.innerHTML = originalHTML;
+      // Re-run lang to restore translated spans
+      setLang(currentLang);
+    });
+  }
 </script>
+<style>
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+</style>
 </body>
 </html>
