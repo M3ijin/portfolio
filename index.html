@@ -113,6 +113,123 @@
     cursor: wait;
   }
 
+  /* ── ESTILOS DE IMPRESIÓN / PDF ─────────────────────────────────────── */
+  @media print {
+    * {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    body {
+      background: #ffffff !important;
+      color: #111111 !important;
+      font-size: 12px !important;
+    }
+
+    body::before, body::after { display: none !important; }
+
+    .top-bar,
+    .scroll-hint { display: none !important; }
+
+    .container { max-width: 100% !important; padding: 0 20px !important; }
+
+    .hero { min-height: auto !important; padding: 32px 0 24px !important; }
+
+    .hero-name {
+      font-size: 52px !important;
+      background: none !important;
+      -webkit-text-fill-color: #111111 !important;
+      color: #111111 !important;
+    }
+    .hero-name span {
+      background: none !important;
+      -webkit-text-fill-color: #0077aa !important;
+      color: #0077aa !important;
+    }
+
+    .hero-label { color: #0077aa !important; opacity: 1 !important; }
+    .hero-title { color: #333 !important; opacity: 1 !important; }
+    .hero-title em { color: #007755 !important; }
+    .hero-desc { color: #444 !important; opacity: 1 !important; }
+
+    .status-badge {
+      background: #e8f5e9 !important;
+      border-color: #a5d6a7 !important;
+      color: #2e7d32 !important;
+      opacity: 1 !important;
+    }
+    .status-dot { background: #2e7d32 !important; box-shadow: none !important; }
+
+    .hero-cta { display: none !important; }
+
+    section { border-top: 1px solid #ddd !important; padding: 20px 0 !important; page-break-inside: avoid; }
+
+    .section-num { color: #0077aa !important; }
+    .section-title { color: #111 !important; font-size: 26px !important; }
+
+    .exp-card, .skill-group, .edu-card, .lang-card, .contact-card {
+      background: #f8f9fa !important;
+      border: 1px solid #e0e0e0 !important;
+      box-shadow: none !important;
+      transform: none !important;
+      page-break-inside: avoid;
+    }
+
+    .exp-card::before { display: none !important; }
+
+    .exp-company { color: #111 !important; }
+    .exp-period {
+      background: #e3f2fd !important;
+      border-color: #90caf9 !important;
+      color: #0077aa !important;
+    }
+    .exp-role { color: #007755 !important; }
+    .exp-desc { color: #444 !important; }
+    .exp-bullets li { color: #555 !important; }
+    .exp-bullets li::before { color: #0077aa !important; }
+
+    .tag {
+      background: #eeeeee !important;
+      border-color: #cccccc !important;
+      color: #444 !important;
+    }
+
+    .skill-group-title { color: #0077aa !important; }
+    .skill-group-title::before { background: #0077aa !important; box-shadow: none !important; }
+    .skill-pill {
+      background: #eeeeee !important;
+      border-color: #cccccc !important;
+      color: #333 !important;
+    }
+
+    .edu-school { color: #111 !important; }
+    .edu-degree { color: #007755 !important; }
+    .edu-note { color: #555 !important; }
+    .edu-badge { background: #6a1b9a !important; color: #fff !important; }
+
+    .lang-flag { font-size: 28px !important; }
+    .lang-name { color: #111 !important; }
+    .lang-level { color: #0077aa !important; }
+
+    .contact-card { color: #111 !important; }
+    .contact-label { color: #777 !important; }
+    .contact-value { color: #111 !important; }
+    .contact-icon {
+      background: #eeeeee !important;
+      border-color: #cccccc !important;
+    }
+
+    .reveal { opacity: 1 !important; transform: none !important; }
+    .cursor { display: none !important; }
+
+    footer { color: #999 !important; border-top: 1px solid #ddd !important; }
+
+    @page {
+      size: A4;
+      margin: 15mm 15mm 15mm 15mm;
+    }
+  }
+
   .lang-btn {
     background: none;
     border: none;
@@ -734,7 +851,6 @@
     .btn { justify-content: center; }
   }
 </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
 
@@ -1018,55 +1134,13 @@
 
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  // PDF DOWNLOAD — página completa como CV
+  // PDF DOWNLOAD — usa @media print con estilos limpios en blanco
   function downloadPDF() {
-    const btn = document.getElementById('pdfBtn');
-    const originalHTML = btn.innerHTML;
-    btn.classList.add('loading');
-    btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;animation:spin 1s linear infinite"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg><span>' + (currentLang === 'es' ? 'Generando...' : 'Generating...') + '</span>';
-
-    // Hide top-bar during capture
-    const topBar = document.querySelector('.top-bar');
-    topBar.style.display = 'none';
-
-    // Make all reveal elements visible for capture
+    // Asegurarse de que todos los elementos reveal estén visibles antes de imprimir
     document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
-
-    const element = document.querySelector('.container') || document.body;
-
-    const opt = {
-      margin:       [10, 14, 10, 14],
-      filename:     'Alex_Olejnik_CV.pdf',
-      image:        { type: 'jpeg', quality: 0.98 },
-      html2canvas:  {
-        scale: 2,
-        useCORS: true,
-        backgroundColor: '#0a0a0f',
-        logging: false,
-        windowWidth: 960
-      },
-      jsPDF: {
-        unit: 'mm',
-        format: 'a4',
-        orientation: 'portrait'
-      },
-      pagebreak: { mode: ['avoid-all', 'css'] }
-    };
-
-    html2pdf().set(opt).from(document.body).save().then(() => {
-      topBar.style.display = '';
-      btn.classList.remove('loading');
-      btn.innerHTML = originalHTML;
-      // Re-run lang to restore translated spans
-      setLang(currentLang);
-    });
+    // Pequeño delay para que el DOM se actualice
+    setTimeout(() => window.print(), 100);
   }
 </script>
-<style>
-  @keyframes spin {
-    from { transform: rotate(0deg); }
-    to   { transform: rotate(360deg); }
-  }
-</style>
 </body>
 </html>
