@@ -96,91 +96,51 @@
     transition: all 0.2s;
     white-space: nowrap;
   }
-
-  .pdf-btn:hover {
-    box-shadow: 0 0 20px rgba(0,229,255,0.4);
-    transform: translateY(-1px);
-  }
-
+  .pdf-btn:hover { box-shadow: 0 0 20px rgba(0,229,255,0.4); transform: translateY(-1px); }
   .pdf-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
 
-  /* ── ESTILOS DE IMPRESIÓN / PDF ── */
   @media print {
-    @page {
-      size: A4;
-      margin: 15mm 15mm 15mm 15mm;
-    }
-
-    * {
-      -webkit-print-color-adjust: exact !important;
-      print-color-adjust: exact !important;
-    }
-
-    body {
-      background: #ffffff !important;
-      color: #111111 !important;
-      font-size: 12px !important;
-    }
-
+    @page { size: A4; margin: 12mm 15mm 12mm 15mm; }
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    body { background: #ffffff !important; color: #111111 !important; font-size: 11px !important; }
     body::before, body::after { display: none !important; }
-    .top-bar, .scroll-hint { display: none !important; }
-    .container { max-width: 100% !important; padding: 0 20px !important; }
-    .hero { min-height: auto !important; padding: 32px 0 24px !important; }
-    .hero-name {
-      font-size: 52px !important;
-      background: none !important;
-      -webkit-text-fill-color: #111111 !important;
-    }
-    .hero-name span {
-      background: none !important;
-      -webkit-text-fill-color: #0077aa !important;
-    }
-    .hero-label { color: #0077aa !important; opacity: 1 !important; }
-    .hero-title { color: #333 !important; opacity: 1 !important; }
+    .top-bar, .scroll-hint, .hero-cta, .cursor { display: none !important; }
+    .container { max-width: 100% !important; padding: 0 !important; }
+    .hero { min-height: auto !important; height: auto !important; padding: 20px 0 16px !important; }
+    .hero-name { font-size: 44px !important; line-height: 1 !important; margin-bottom: 12px !important; background: none !important; -webkit-text-fill-color: #111111 !important; }
+    .hero-name span { background: none !important; -webkit-text-fill-color: #0066aa !important; }
+    .hero-label { color: #0066aa !important; opacity: 1 !important; margin-bottom: 10px !important; }
+    .hero-title { color: #333 !important; opacity: 1 !important; margin-bottom: 10px !important; font-size: 15px !important; }
     .hero-title em { color: #007755 !important; }
-    .hero-desc { color: #444 !important; opacity: 1 !important; }
-    .status-badge {
-      background: #e8f5e9 !important;
-      border-color: #a5d6a7 !important;
-      color: #2e7d32 !important;
-      opacity: 1 !important;
-    }
+    .hero-desc { color: #444 !important; opacity: 1 !important; margin-bottom: 0 !important; font-size: 11px !important; }
+    .status-badge { background: #e8f5e9 !important; border-color: #a5d6a7 !important; color: #2e7d32 !important; opacity: 1 !important; margin-bottom: 12px !important; }
     .status-dot { background: #2e7d32 !important; box-shadow: none !important; }
-    .hero-cta { display: none !important; }
-    section { border-top: 1px solid #ddd !important; padding: 20px 0 !important; page-break-inside: avoid; }
-    .section-num { color: #0077aa !important; }
-    .section-title { color: #111 !important; font-size: 26px !important; }
-    .exp-card, .skill-group, .edu-card, .lang-card, .contact-card {
-      background: #f8f9fa !important;
-      border: 1px solid #e0e0e0 !important;
-      box-shadow: none !important;
-      transform: none !important;
-      page-break-inside: avoid;
-    }
+    section { border-top: 1px solid #ddd !important; padding: 14px 0 !important; page-break-inside: avoid; }
+    .section-num { color: #0066aa !important; }
+    .section-title { color: #111 !important; font-size: 22px !important; }
+    .section-header { margin-bottom: 16px !important; }
+    .exp-card, .skill-group, .edu-card, .lang-card, .contact-card { background: #f8f9fa !important; border: 1px solid #e0e0e0 !important; box-shadow: none !important; transform: none !important; page-break-inside: avoid; margin-bottom: 10px !important; padding: 16px !important; }
     .exp-card::before { display: none !important; }
     .exp-company { color: #111 !important; }
-    .exp-period { background: #e3f2fd !important; border-color: #90caf9 !important; color: #0077aa !important; }
+    .exp-period { background: #e3f2fd !important; border-color: #90caf9 !important; color: #0066aa !important; }
     .exp-role { color: #007755 !important; }
-    .exp-desc { color: #444 !important; }
-    .exp-bullets li { color: #555 !important; }
-    .exp-bullets li::before { color: #0077aa !important; }
-    .tag { background: #eeeeee !important; border-color: #cccccc !important; color: #444 !important; }
-    .skill-group-title { color: #0077aa !important; }
-    .skill-group-title::before { background: #0077aa !important; box-shadow: none !important; }
-    .skill-pill { background: #eeeeee !important; border-color: #cccccc !important; color: #333 !important; }
+    .exp-desc, .exp-bullets li { color: #444 !important; }
+    .exp-bullets li::before { color: #0066aa !important; }
+    .tag, .skill-pill { background: #eeeeee !important; border-color: #cccccc !important; color: #444 !important; }
+    .skill-group-title { color: #0066aa !important; }
+    .skill-group-title::before { background: #0066aa !important; box-shadow: none !important; }
     .edu-school { color: #111 !important; }
     .edu-degree { color: #007755 !important; }
     .edu-note { color: #555 !important; }
     .edu-badge { background: #6a1b9a !important; color: #fff !important; }
     .lang-name { color: #111 !important; }
-    .lang-level { color: #0077aa !important; }
+    .lang-level { color: #0066aa !important; }
     .contact-card { color: #111 !important; }
     .contact-label { color: #777 !important; }
     .contact-value { color: #111 !important; }
     .contact-icon { background: #eeeeee !important; border-color: #cccccc !important; }
     .reveal { opacity: 1 !important; transform: none !important; }
-    .cursor { display: none !important; }
-    footer { color: #999 !important; border-top: 1px solid #ddd !important; }
+    footer { color: #999 !important; border-top: 1px solid #ddd !important; padding: 10px 0 !important; }
   }
 
   .lang-btn {
@@ -807,7 +767,7 @@
 </head>
 <body>
 
-<!-- TOP BAR: idioma + PDF -->
+<!-- TOP BAR -->
 <div class="top-bar">
   <div class="lang-switcher">
     <button class="lang-btn active" onclick="setLang('es')">ES</button>
@@ -843,7 +803,7 @@
         data-en="Developer with 3+ years of experience in demanding environments — banking and enterprise. Specialized in Java and PL/SQL, with a full-stack vision and currently integrating artificial intelligence into the development workflow.">
       </p>
       <div class="hero-cta">
-        <a href="/cdn-cgi/l/email-protection#6b0a070e130407080a52522b041e1f07040400450e18" class="btn btn-primary">
+        <a href="#" onclick="this.href='mailto:'+['alexolca99','outlook.es'].join('@'); return false;" class="btn btn-primary">
           <span>✉</span>
           <span class="t" data-es="Contactar" data-en="Get in touch"></span>
         </a>
@@ -1026,11 +986,11 @@
       <h2 class="section-title t" data-es="Contacto" data-en="Contact"></h2>
     </div>
     <div class="contact-grid">
-      <a href="/cdn-cgi/l/email-protection#5938353c2136353a38606019362c2d35363632773c2a" class="contact-card reveal">
+      <a href="#" onclick="this.href='mailto:'+['alexolca99','outlook.es'].join('@'); return false;" class="contact-card reveal">
         <div class="contact-icon">✉</div>
         <div>
           <div class="contact-label">Email</div>
-          <div class="contact-value"><span class="__cf_email__" data-cfemail="3958555c4156555a58000079564c4d55565652175c4a">[email&#160;protected]</span></div>
+          <div class="contact-value"><span id="contact-email"></span><script>document.getElementById("contact-email").textContent=['alexolca99','outlook.es'].join('@');</script></div>
         </div>
       </a>
       <a href="tel:+34662492921" class="contact-card reveal">
@@ -1058,7 +1018,7 @@
   </footer>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
   // LANGUAGE SWITCHER
   let currentLang = 'es';
 
@@ -1082,7 +1042,6 @@
       if (entry.isIntersecting) entry.target.classList.add('visible');
     });
   }, { threshold: 0.15 });
-
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
   function downloadPDF() {
