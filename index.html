@@ -773,12 +773,12 @@
     <button class="lang-btn active" onclick="setLang('es')">ES</button>
     <button class="lang-btn" onclick="setLang('en')">EN</button>
   </div>
-  <button class="pdf-btn" onclick="downloadPDF()">
+  <a id="cv-download-btn" href="Alex_Olejnik_CV_ES.pdf" download class="pdf-btn">
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
       <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
     </svg>
     <span class="t" data-es="Descargar PDF" data-en="Download PDF"></span>
-  </button>
+  </a>
 </div>
 
 <!-- HERO -->
@@ -799,7 +799,7 @@
         <span class="t" data-es="Full-Stack Developer · " data-en="Full-Stack Developer · "></span><em class="t" data-es="Backend Specialist" data-en="Backend Specialist"></em><span class="cursor"></span>
       </p>
       <p class="hero-desc t"
-        data-es="Desarrollador con más de 3 años de experiencia en entornos de alta exigencia — banca y empresa. Especializado en Java y PL/SQL, con visión full-stack y actualmente incorporando inteligencia artificial al flujo de desarrollo."
+        data-es="Desarrollador con más de 3 años de experiencia en entornos de alta exigencia — banca y sector público. Especializado en Java y PL/SQL, con visión full-stack y actualmente incorporando inteligencia artificial al flujo de desarrollo."
         data-en="Developer with 3+ years of experience in demanding environments — banking and enterprise. Specialized in Java and PL/SQL, with a full-stack vision and currently integrating artificial intelligence into the development workflow.">
       </p>
       <div class="hero-cta">
@@ -839,8 +839,8 @@
       <ul class="exp-bullets">
         <li class="t" data-es="Desarrollo Back-End con Java y PL/SQL" data-en="Backend development with Java and PL/SQL"></li>
         <li class="t" data-es="Generación y personalización de informes con JReport" data-en="Report generation and customization with JReport"></li>
-        <li class="t" data-es="Desarrollo de interfaces con JSP" data-en="UI development with JSP"></li>
-        <li class="t" data-es="Aprendizaje autodidacta de IA para su implementación en el desarrollo de software" data-en="Self-taught learning of AI for integration into software development workflows"></li>
+        <li class="t" data-es="Creación de páginas a medida mediante interfaces JSP" data-en="Custom page creation using JSP interfaces"></li>
+        <li class="t" data-es="Uso de IA como herramienta adicional en el desarrollo, iniciativa impulsada por la empresa" data-en="Use of AI as an additional development tool, a company-driven initiative"></li>
       </ul>
       <div class="tags">
         <span class="tag">Java</span>
@@ -859,7 +859,7 @@
         <div class="exp-company">Capgemini</div>
         <div class="exp-period t" data-es="2021 — 2023" data-en="2021 — 2023"></div>
       </div>
-      <div class="exp-role t" data-es="Software Developer · CaixaBank" data-en="Software Developer · CaixaBank"></div>
+      <div class="exp-role t" data-es="Software Developer" data-en="Software Developer"></div>
       <p class="exp-desc t"
         data-es="Desarrollo de aplicaciones para el sector bancario en el entorno tecnológico de CaixaBank. Foco en Back-End Java y gestión de bases de datos relacionales, con metodologías ágiles."
         data-en="Application development for the banking sector within CaixaBank's technology environment. Focused on Java backend and relational database management, using agile methodologies.">
@@ -974,7 +974,7 @@
       <div class="lang-card reveal">
         <span class="lang-flag">🇬🇧</span>
         <div class="lang-name t" data-es="Inglés" data-en="English"></div>
-        <div class="lang-level">B1</div>
+        <div class="lang-level">B2</div>
       </div>
     </div>
   </section>
@@ -1031,6 +1031,10 @@
       if (val) el.textContent = val;
     });
     document.documentElement.lang = lang;
+    const cvBtn = document.getElementById('cv-download-btn');
+    if (cvBtn) {
+      cvBtn.href = lang === 'en' ? 'Alex_Olejnik_CV_EN.pdf' : 'Alex_Olejnik_CV_ES.pdf';
+    }
   }
 
   // Init language
@@ -1044,10 +1048,7 @@
   }, { threshold: 0.15 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  function downloadPDF() {
-    document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
-    setTimeout(() => window.print(), 100);
-  }
+
 </script>
 </body>
 </html>
